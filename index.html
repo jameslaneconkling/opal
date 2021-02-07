@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>OPAL</title>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: #fff;
+        touch-action: pan-y;
+        height: 100vh;
+        overflow: auto;
+      }
+      section {
+        display: flex;
+        justify-content: center;
+      }
+      video {
+        position: fixed;
+        z-index: 0;
+        max-width: 100%;
+      }
+      #scroll-container {
+        position: relative;
+        height: 10000px;
+        width: 100%;
+        max-width: 998px;
+        padding: 20px;
+        z-index: 1;
+        font-family: sans-serif;
+      }
+      h1 {
+        font-size: 5rem;
+        margin: 1rem 0 5rem;
+      }
+      p {
+        margin-bottom: 12rem;
+        width: 480px;
+        line-height: 1.4rem;
+      }
+      #foundation {
+        position: absolute;
+        top: 6%;
+      }
+      #basement {
+        position: absolute;
+        top: 16%;
+      }
+      #floor {
+        position: absolute;
+        top: 35%;
+      }
+      #walls {
+        position: absolute;
+        top: 40%;
+      }
+      #bathroom {
+        position: absolute;
+        top: 56%;
+      }
+      #roof {
+        position: absolute;
+        top: 66%;
+      }
+      #siding {
+        position: absolute;
+        top: 72%;
+      }
+      #deck {
+        position: absolute;
+        top: 86%;
+      }
+      #fin {
+        position: absolute;
+        top: 94%;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <video id="video" width="998" height="560" autoplay muted playsinline>
+        <source src="video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div id="scroll-container">
+        <h1>OPAL</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+
+        <div id="foundation">
+          <h2>Foundation</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="basement">
+          <h2>A Basement!?!</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="floor">
+          <h2>Floor</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="walls">
+          <h2>Walls</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="bathroom">
+          <h2>Bathroom</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="roof">
+          <h2>Roof</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="siding">
+          <h2>Siding</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="deck">
+          <h2>Deck</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+
+        <div id="fin">
+          <h2>Fin</h2>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores libero tempora deleniti in aliquam, iure id obcaecati porro rerum quis expedita, eos doloremque quisquam aspernatur voluptatibus, dolor enim iusto et!</p>
+        </div>
+      </div>
+    </section>
+  </body>
+  <script>
+    var FRAMES = 148;
+    var FPS = 30;
+    var video = document.getElementById('video');
+    var container = document.getElementById('scroll-container');
+
+    var throttle = (fn) => {
+      var run = true;
+
+      return function () {
+        if (run) {
+          // console.log('run')
+          run = false;
+          fn.apply(null, Array.prototype.slice.call(arguments));
+          requestAnimationFrame(function() {
+            // console.log('reset')
+            run = true;
+          });
+        } else {
+          console.log('drop')
+        }
+      }
+    };
+
+    window.addEventListener('scroll', function (e) {
+      if (!isNaN(video.duration)) {
+        var time = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
+        video.currentTime = time;
+      }
+    });
+
+    video.addEventListener('loadedmetadata', function(e) {
+      video.pause();
+      var time = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
+      video.currentTime = time;
+    });
+  </script>
+</html>
