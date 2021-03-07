@@ -137,40 +137,18 @@
     </section>
   </body>
   <script>
-    var FRAMES = 148;
-    var FPS = 30;
     var video = document.getElementById('video');
     var container = document.getElementById('scroll-container');
 
-    var throttle = (fn) => {
-      var run = true;
-
-      return function () {
-        if (run) {
-          // console.log('run')
-          run = false;
-          fn.apply(null, Array.prototype.slice.call(arguments));
-          requestAnimationFrame(function() {
-            // console.log('reset')
-            run = true;
-          });
-        } else {
-          console.log('drop')
-        }
-      }
-    };
-
     window.addEventListener('scroll', function (e) {
       if (!isNaN(video.duration)) {
-        var time = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
-        video.currentTime = time;
+        video.currentTime = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
       }
     });
 
     video.addEventListener('loadedmetadata', function(e) {
       video.pause();
-      var time = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
-      video.currentTime = time;
+      video.currentTime = (window.scrollY / (container.offsetHeight - 600)) * video.duration;
     });
   </script>
 </html>
